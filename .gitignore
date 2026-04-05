@@ -1,0 +1,9 @@
+*.npz
+*.npy
+__pycache__/
+.venv/
+*.pyc
+.idea/
+experiments.db
+weights/
+data/
