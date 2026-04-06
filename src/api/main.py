@@ -6,7 +6,6 @@ import os
 import sys
 
 from src.model.classifier import SelfImprovingClassifier
-from src.registry.registry import ModelRegistry
 
 
 
@@ -35,35 +34,60 @@ model_version = None
 
 
 def load_model():
-    """Load the production model from registry at startup."""
+    """Load the production model from HF Hub at startup."""
     global model, model_config, model_version
 
-    registry = ModelRegistry('rekhi/deadneurons-registry')
-    weights, config = registry.get_production_model()
+    try:
+        from huggingface_hub import hf_hub_download
 
-    if weights is None:
-        print("WARNING: No production model found in registry")
-        return
+        repo_id = 'rekhi/deadneurons-registry'
 
-    # Create classifier with the right dimensions
-    n_features = weights['W1'].shape[0]
-    n_hidden = weights['W1'].shape[1]
+        # Download registry.json to find production version
+        registry_path = hf_hub_download(
+            repo_id=repo_id,
+            filename='registry.json',
+            repo_type='dataset'
+        )
 
-    model = SelfImprovingClassifier(
-        n_features=n_features,
-        n_hidden=n_hidden
-    )
-    model.set_weights(weights)
-    model_config = config
-    model_version = registry.registry['current_production']
+        with open(registry_path, 'r') as f:
+            registry = json.load(f)
 
-    print(f"  [API] Loaded model {model_version} "
-          f"({n_features} features, {n_hidden} hidden)")
+        version = registry.get('current_production')
+        if version is None:
+            print("WARNING: No production model in registry")
+            return
 
+        # Download weights and config for the production version
+        weights_path = hf_hub_download(
+            repo_id=repo_id,
+            filename=f'models/{version}/weights.npz',
+            repo_type='dataset'
+        )
+        config_path = hf_hub_download(
+            repo_id=repo_id,
+            filename=f'models/{version}/config.json',
+            repo_type='dataset'
+        )
 
-# Load model when the app starts
-load_model()
+        weights = dict(np.load(weights_path))
 
+        with open(config_path, 'r') as f:
+            model_config = json.load(f)
+
+        n_features = weights['W1'].shape[0]
+        n_hidden = weights['W1'].shape[1]
+
+        model = SelfImprovingClassifier(
+            n_features=n_features,
+            n_hidden=n_hidden
+        )
+        model.set_weights(weights)
+        model_version = version
+
+        print(f"  [API] Loaded {version} from HF Hub ({n_features} features, {n_hidden} hidden)")
+
+    except Exception as e:
+        print(f"  [API] Failed to load model: {e}")
 
 @app.get('/health')
 def health():
