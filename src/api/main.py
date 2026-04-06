@@ -36,7 +36,7 @@ model_version = None
 def load_model():
     """Load the production model from HF Hub at startup."""
     global model, model_config, model_version
-
+    print("  [API] Starting model load...")
     try:
         from huggingface_hub import hf_hub_download
 
@@ -89,8 +89,11 @@ def load_model():
 
         print(f"  [API] Loaded {version} from HF Hub ({n_features} features, {n_hidden} hidden)")
 
+
     except Exception as e:
+        import traceback
         print(f"  [API] Failed to load model: {e}")
+        traceback.print_exc()
 
 @app.get('/health')
 def health():
