@@ -103,8 +103,8 @@ Not included in repo due to size. Download from the original source and place in
 ## MLOps Pipeline (In Progress)
 
 - [x] Phase 1: Feature extraction + self-improving classifier
-- [ ] Phase 2: Experiment tracking
-- [ ] Phase 3: Model registry with versioning
+- [x] Phase 2: Experiment tracking
+- [x] Phase 3: Model registry with versioning
 - [ ] Phase 4: Data validation + drift detection
 - [ ] Phase 5: FastAPI serving + Docker
 - [ ] Phase 6: Monitoring dashboard
