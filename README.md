@@ -105,10 +105,10 @@ Not included in repo due to size. Download from the original source and place in
 - [x] Phase 1: Feature extraction + self-improving classifier
 - [x] Phase 2: Experiment tracking
 - [x] Phase 3: Model registry with versioning
-- [ ] Phase 4: Data validation + drift detection
-- [ ] Phase 5: FastAPI serving + Docker
-- [ ] Phase 6: Monitoring dashboard
-- [ ] Phase 7: CI/CD + automated retraining
+- [x] Phase 4: Data validation + drift detection
+- [x] Phase 5: FastAPI serving + Docker
+- [x] Phase 6: Monitoring dashboard
+- [x] Phase 7: CI/CD + automated retraining
 
 ## Author
 
