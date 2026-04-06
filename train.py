@@ -16,7 +16,7 @@ import argparse
 import os
 import sys
 import time
-
+from src.registry.registry import ModelRegistry
 from src.features.extractor import SpikeFeatureExtractor
 from src.model.classifier import SelfImprovingClassifier
 from src.tracking.tracker import ExperimentTracker
@@ -243,6 +243,19 @@ def main():
                 json.dump(summary, f, indent=2)
             print(f"\nSummary saved: weights/training_summary.json")
 
+
+        # Register model in registry and try to promote
+        registry = ModelRegistry('rekhi/deadneurons-registry')
+
+        # Collect weights from the last trained classifier
+        # For all-sessions run, we register the overall summary
+        # For single session, we register that session's weights
+        version = registry.register_model(
+            weights=clf.get_weights(),
+            config=hyperparams,
+            metrics=summary
+        )
+        registry.promote(version)
         # End tracking
         run_duration = time.time() - run_start
         if tracker:
