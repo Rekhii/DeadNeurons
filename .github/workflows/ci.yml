@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install numpy scipy fastapi uvicorn huggingface_hub
+
+      - name: Test feature extractor import
+        run: python -c "from src.features.extractor import SpikeFeatureExtractor; print('Extractor OK')"
+
+      - name: Test classifier import
+        run: python -c "from src.model.classifier import SelfImprovingClassifier; print('Classifier OK')"
+
+      - name: Test classifier training
+        run: |
+          python -c "
+          import numpy as np
+          from src.model.classifier import SelfImprovingClassifier
+          rng = np.random.default_rng(42)
+          X = rng.normal(0, 1, (100, 20))
+          y = (X[:, 0] > 0).astype(int)
+          clf = SelfImprovingClassifier(n_features=20, n_hidden=8)
+          history = clf.fit(X[:80], y[:80], X[80:], y[80:], epochs=10, verbose=False)
+          acc = clf.compute_accuracy(X[80:], y[80:])
+          print(f'Test accuracy: {acc:.3f}')
+          assert acc > 0.5, 'Model should beat chance'
+          print('Classifier training OK')
+          "
+
+      - name: Test validator
+        run: |
+          python -c "
+          import numpy as np
+          from src.validation.validator import DataValidator
+          v = DataValidator()
+          spks = np.random.poisson(5, (50, 30, 250)).astype(float)
+          resp = np.random.choice([-1, 0, 1], size=30)
+          passed, report = v.validate_session(spks, resp)
+          print(f'Validation: {\"PASSED\" if passed else \"FAILED\"}')
+          print('Validator OK')
+          "
+
+      - name: Test drift detector
+        run: |
+          python -c "
+          import numpy as np
+          from src.monitoring.drift_detector import DriftDetector
+          d = DriftDetector()
+          rng = np.random.default_rng(42)
+          X_ref = rng.normal(0, 1, (100, 5))
+          d.fit(X_ref)
+          report = d.detect(rng.normal(0, 1, (100, 5)))
+          assert not report['drifted'], 'Same distribution should not drift'
+          report = d.detect(rng.normal(5, 1, (100, 5)))
+          assert report['drifted'], 'Shifted distribution should drift'
+          print('Drift detector OK')
+          "
