@@ -41,12 +41,13 @@ def load_model():
         from huggingface_hub import hf_hub_download
 
         repo_id = 'rekhi/deadneurons-registry'
+        token = os.environ.get('HF_TOKEN')
 
-        # Download registry.json to find production version
         registry_path = hf_hub_download(
             repo_id=repo_id,
             filename='registry.json',
-            repo_type='dataset'
+            repo_type='dataset',
+            token=token
         )
 
         with open(registry_path, 'r') as f:
@@ -61,12 +62,14 @@ def load_model():
         weights_path = hf_hub_download(
             repo_id=repo_id,
             filename=f'models/{version}/weights.npz',
-            repo_type='dataset'
+            repo_type='dataset',
+            token=token
         )
         config_path = hf_hub_download(
             repo_id=repo_id,
             filename=f'models/{version}/config.json',
-            repo_type='dataset'
+            repo_type='dataset',
+            token=token
         )
 
         weights = dict(np.load(weights_path))
