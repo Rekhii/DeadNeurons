@@ -169,3 +169,5 @@ def predict_batch(request: BatchPredictRequest):
         })
 
     return {'predictions': results, 'count': len(results)}
+
+load_model()
