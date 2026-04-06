@@ -9,7 +9,6 @@ API_URL = 'https://deadneurons.onrender.com'
 
 st.set_page_config(
     page_title='DeadNeurons | Neural Decoder MLOps',
-    page_icon='🧠',
     layout='wide'
 )
 
