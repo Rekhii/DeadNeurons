@@ -1,10 +1,8 @@
 import streamlit as st
 import requests
-import json
 import numpy as np
 import pandas as pd
 
-# Configuration
 API_URL = 'https://deadneurons.onrender.com'
 
 st.set_page_config(
@@ -12,64 +10,34 @@ st.set_page_config(
     layout='wide'
 )
 
-# Custom CSS for clean professional look
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0;
-        color: #ffffff;
-    }
-    .sub-header {
-        font-size: 1.1rem;
-        color: #888888;
-        margin-top: -10px;
-        margin-bottom: 30px;
-    }
-    .metric-card {
-        background: #1a1a2e;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        border: 1px solid #2d2d44;
-    }
-    .metric-value {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #4ade80;
-    }
-    .metric-label {
-        font-size: 0.85rem;
-        color: #888888;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
     .section-divider {
         border-top: 1px solid #2d2d44;
         margin: 30px 0;
     }
-    .status-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-    .badge-live {
-        background: #065f46;
-        color: #4ade80;
-    }
-    .badge-offline {
-        background: #7f1d1d;
-        color: #f87171;
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
-st.markdown('<p class="main-header">DeadNeurons</p>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">Self-improving neural decoder with full MLOps lifecycle. Built in pure NumPy. Deployed end to end.</p>', unsafe_allow_html=True)
+# Hero Header
+st.markdown("""
+<div style="text-align: center; padding: 40px 0 20px 0;">
+    <h1 style="font-size: 4rem; font-weight: 800; margin: 0; 
+    background: linear-gradient(90deg, #4ade80, #22d3ee); 
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    DeadNeurons</h1>
+    <p style="font-size: 1.3rem; color: #888888; margin-top: 8px;">
+    Self-improving neural decoder with full MLOps lifecycle<br>
+    Built in pure NumPy. Trained on real Neuropixels brain recordings. Deployed end to end.
+    </p>
+    <p style="margin-top: 16px;">
+    <span style="background: #065f46; color: #4ade80; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">84.3% Mean Accuracy</span>
+    <span style="background: #1e1b4b; color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">26 Sessions</span>
+    <span style="background: #312e81; color: #c4b5fd; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">4,869 Trials</span>
+    <span style="background: #064e3b; color: #6ee7b7; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">$0 Infrastructure</span>
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 # API Status Check
 api_live = False
@@ -139,12 +107,12 @@ c5.metric('API Status', 'Live' if api_live else 'Offline')
 
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
-# Two main sections
+# Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
-    '📊 Performance',
-    '🔬 Live Prediction',
-    '🏗️ Architecture',
-    '📋 Model Registry'
+    'Performance',
+    'Live Prediction',
+    'Architecture',
+    'Model Registry'
 ])
 
 # Tab 1: Performance
@@ -154,14 +122,11 @@ with tab1:
 
     df = pd.DataFrame(results['per_session'])
 
-    # Accuracy by session bar chart
     chart_df = df[['session', 'acc']].copy()
-    chart_df['chance'] = 0.5
     chart_df = chart_df.set_index('session')
 
     st.bar_chart(chart_df['acc'], height=350, color='#4ade80')
 
-    # Two columns: by mouse + session table
     col_a, col_b = st.columns(2)
 
     with col_a:
@@ -183,7 +148,6 @@ with tab1:
         table_df.columns = ['Session', 'Mouse', 'Neurons', 'Accuracy']
         st.dataframe(table_df, use_container_width=True, height=350)
 
-    # Key insight
     st.info(
         'Session 10 (Hench, 857 neurons) achieves 98.0% accuracy. '
         'Session 2 (Cori, 619 neurons) is the hardest at 67.7%. '
@@ -377,9 +341,8 @@ st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 st.markdown(
     '<p style="text-align: center; color: #666666;">'
     'Built by <a href="https://github.com/Rekhii" style="color: #4ade80;">Rekhi</a> '
-    '· <a href="https://github.com/Rekhii/DeadNeurons" style="color: #4ade80;">GitHub</a> '
-    '· <a href="https://deadneurons.onrender.com/docs" style="color: #4ade80;">API Docs</a> '
-    '· <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #4ade80;">HF Hub</a>'
+    ' <a href="https://github.com/Rekhii/DeadNeurons" style="color: #4ade80;">GitHub</a> '
+    ' <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #4ade80;">HF Hub</a>'
     '</p>',
     unsafe_allow_html=True
 )
