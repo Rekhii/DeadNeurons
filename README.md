@@ -2,7 +2,7 @@
 
 A neural decoder that monitors its own hidden neurons, detects when they die, and reinitializes them automatically during training. Built from scratch in NumPy. Trained on real Neuropixels brain recordings. Served via production-oriented MLOps infrastructure.
 
-**[Live Dashboard](https://deadneurons.streamlit.app)** · **[Live API Docs](https://deadneurons.onrender.com/docs)** · **[Model Registry](https://huggingface.co/datasets/rekhi/deadneurons-registry)**
+**[Live Dashboard](https://deadneurons.streamlit.app)**  · **[Model Registry](https://huggingface.co/datasets/rekhi/deadneurons-registry)**
 
 ![Dashboard](figures/dashboard_hero.png)
 
