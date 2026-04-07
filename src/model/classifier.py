@@ -49,7 +49,7 @@ class SelfImprovingClassifier:
 
         # He initialization for ReLU
         # Scale weights by sqrt(2 / fan_in) so variance stays healthy
-        self.W1 = self.rng.normal(0, np.sqrt(2.0 / n_features), (n_features, n_hidden))
+        self.W1 = self.rng.normal(0, np.sqrt(6.0 / n_features), (n_features, n_hidden))
         self.b1 = np.zeros(n_hidden)
         self.W2 = self.rng.normal(0, np.sqrt(2.0 / n_hidden), (n_hidden, 1))
         self.b2 = np.zeros(1)
@@ -215,6 +215,16 @@ class SelfImprovingClassifier:
 
         self.correction_history.append(corrections)
         return corrections
+
+    def kill_neurons(self, indices):
+        """
+        Manually kill specific neurons by zeroing their weights.
+        Used for testing the self-improvement cycle.
+        """
+        for idx in indices:
+            self.W1[:, idx] = 0.0
+            self.b1[idx] = -10.0
+            self.W2[idx, :] = 0.0
 
     def compute_loss(self, y_true, y_pred):
         """Binary cross-entropy loss."""
