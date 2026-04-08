@@ -10,21 +10,6 @@ A neural decoder that monitors its own hidden neurons, detects when they die, an
 
 ---
 
-## Key Result: Self-Improving Training Works
-
-| Metric | Without Self-Improvement | With Self-Improvement |
-|--------|--------------------------|----------------------|
-| Dead neurons after kill | 10/32 stayed dead | 10/32 detected and fixed in 1 epoch |
-| Accuracy after neuron death | 52.5% (dropped from 60%) | 62.5% (recovered and exceeded baseline) |
-| Detection rate | 0% (standard training is blind) | 100% (every dead neuron caught) |
-| Recovery time | Never (permanent damage) | 1 epoch (immediate correction) |
-
-![Neuron Health Over Training](figures/neuron_health.png)
-
-*Top: Hidden neuron activations over 100 epochs. 8 neurons killed at epoch 50 (dark spots). Self-improvement detects and reinitializes them within one epoch. Bottom: Accuracy drops at kill, recovers through self-correction.*
-
----
-
 ## The Problem
 
 Standard neural networks silently accumulate dead neurons during training. A neuron's weights drift into a region where ReLU outputs zero for every input. The gradient becomes zero. The weights never update again. The neuron is permanently dead. Nobody notices until accuracy plateaus and nobody knows why.
@@ -109,13 +94,18 @@ After every standard training epoch (forward pass, loss, backward pass, weight u
 - Dead: reinitialize incoming and outgoing weights with fresh He initialization, set bias to 0.01
 - Saturated: scale weights by 0.5 to pull out of saturation
 
-### Evidence: The Cycle Works
+## Key Result: Self-Improving Training Works
 
-We trained a 32-neuron network, then deliberately killed 8 neurons at epoch 50 by zeroing their weights. The self-improvement cycle detected all 8 on the very next epoch and reinitialized them. Accuracy dropped at the kill point and recovered through self-correction.
+| Metric | Without Self-Improvement | With Self-Improvement |
+|--------|--------------------------|----------------------|
+| Dead neurons after kill | 10/32 stayed dead | 10/32 detected and fixed in 1 epoch |
+| Accuracy after neuron death | 52.5% (dropped from 60%) | 62.5% (recovered and exceeded baseline) |
+| Detection rate | 0% (standard training is blind) | 100% (every dead neuron caught) |
+| Recovery time | Never (permanent damage) | 1 epoch (immediate correction) |
 
 ![Neuron Health Over Training](figures/neuron_health.png)
 
-The heatmap shows each hidden neuron's mean activation over 100 epochs. Dark spots at epoch 50 are the killed neurons. They reactivate in the following epochs as the correction mechanism reinitializes their weights. The bottom panel shows accuracy dropping at the kill point and recovering.
+*Top: Hidden neuron activations over 100 epochs. 8 neurons killed at epoch 50 (dark spots). Self-improvement detects and reinitializes them within one epoch. Bottom: Accuracy drops at kill, recovers through self-correction.*
 
 **Test on synthetic data:**
 
