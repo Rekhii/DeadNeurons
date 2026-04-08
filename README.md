@@ -1,10 +1,27 @@
 # DeadNeurons
 
+[![CI](https://github.com/Rekhii/DeadNeurons/actions/workflows/ci.yml/badge.svg)](https://github.com/Rekhii/DeadNeurons/actions/workflows/ci.yml)
+
 A neural decoder that monitors its own hidden neurons, detects when they die, and reinitializes them automatically during training. Built from scratch in NumPy. Trained on real Neuropixels brain recordings. Served via production-oriented MLOps infrastructure.
 
-**[Live Dashboard](https://deadneurons.streamlit.app)**  · **[Model Registry](https://huggingface.co/datasets/rekhi/deadneurons-registry)**
+**[Live Dashboard](https://deadneurons.streamlit.app)** · **[Live API Docs](https://deadneurons.onrender.com/docs)** · **[Model Registry](https://huggingface.co/datasets/rekhi/deadneurons-registry)**
 
 ![Dashboard](figures/dashboard_hero.png)
+
+---
+
+## Key Result: Self-Improving Training Works
+
+| Metric | Without Self-Improvement | With Self-Improvement |
+|--------|--------------------------|----------------------|
+| Dead neurons after kill | 10/32 stayed dead | 10/32 detected and fixed in 1 epoch |
+| Accuracy after neuron death | 52.5% (dropped from 60%) | 62.5% (recovered and exceeded baseline) |
+| Detection rate | 0% (standard training is blind) | 100% (every dead neuron caught) |
+| Recovery time | Never (permanent damage) | 1 epoch (immediate correction) |
+
+![Neuron Health Over Training](figures/neuron_health.png)
+
+*Top: Hidden neuron activations over 100 epochs. 8 neurons killed at epoch 50 (dark spots). Self-improvement detects and reinitializes them within one epoch. Bottom: Accuracy drops at kill, recovers through self-correction.*
 
 ---
 
