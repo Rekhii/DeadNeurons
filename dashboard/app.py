@@ -74,8 +74,8 @@ st.markdown("""
 
 st.markdown("""
 <div class="hero-wrap">
-<p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
 <h1 class="hero-title">DeadNeurons</h1>
+<p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
 <p class="hero-subtitle">
 Self-improving neural decoder with full MLOps lifecycle<br>
 Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
