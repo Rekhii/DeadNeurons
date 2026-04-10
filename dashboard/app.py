@@ -76,7 +76,6 @@ st.markdown("""
 st.markdown("""
 <div class="hero-wrap">
 <h1 class="hero-title">DeadNeurons</h1>
-<p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
 <p class="hero-subtitle">
 Self-improving neural decoder with full MLOps lifecycle<br>
 Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
@@ -346,8 +345,8 @@ st.markdown(
     '<p style="text-align: center; color: #666666; font-family: \'DM Mono\', monospace; '
     'font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;">'
     'Built by <a href="https://github.com/Rekhii" style="color: #aaaaaa; text-decoration: none;">Rekhi</a> '
-    '&nbsp;·&nbsp; <a href="https://github.com/Rekhii/DeadNeurons" style="color: #aaaaaa; text-decoration: none;">GitHub</a> '
-    '&nbsp;·&nbsp; <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #aaaaaa; text-decoration: none;">HF Hub</a>'
+    '&nbsp;&nbsp;&nbsp; <a href="https://github.com/Rekhii/DeadNeurons" style="color: #aaaaaa; text-decoration: none;">GitHub</a> '
+    '&nbsp;&nbsp;&nbsp; <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #aaaaaa; text-decoration: none;">HF Hub</a>'
     '</p>',
     unsafe_allow_html=True
 )
