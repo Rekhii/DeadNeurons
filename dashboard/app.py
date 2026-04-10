@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 
 API_URL = 'https://deadneurons.onrender.com'
+st.set_page_config(
+    layout='wide'
+)
 
 st.markdown("""
 <style>
