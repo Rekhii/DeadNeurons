@@ -5,6 +5,10 @@ import pandas as pd
 
 API_URL = 'https://deadneurons.onrender.com'
 
+st.set_page_config(
+    layout='wide'
+)
+
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
