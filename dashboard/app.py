@@ -110,7 +110,7 @@ st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 # Tabs
 tab1, tab_neuro, tab2, tab3, tab4 = st.tabs([
     'Performance',
-    'Neural Activity',
+    'How Neural Activity Was Captured',
     'Live Prediction',
     'Architecture',
     'Model Registry'
@@ -157,12 +157,12 @@ with tab1:
 
 # ── Tab: Neural Activity ────────────────────────────────────────────────────
 with tab_neuro:
-    st.subheader('Neural Activity — How the Data Was Captured')
+    st.subheader('How Neural Activity Was Captured')
     st.markdown(
         'The Steinmetz 2019 dataset recorded spiking activity from hundreds of neurons '
         'simultaneously across multiple brain regions using **Neuropixels probes**. '
         'The five figures below are taken directly from the original paper and show '
-        'the full experimental pipeline — from surgery to recording hardware.'
+        'the full experimental pipeline from surgery to recording hardware.'
     )
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
@@ -176,7 +176,7 @@ with tab_neuro:
                 'The mouse is anaesthetised and placed in a stereotaxic frame that holds '
                 'the head perfectly still. The scalp is retracted and the skull surface '
                 'is cleaned and dried. A dental drill is then used to thin and remove a '
-                'small circular patch of bone — the craniotomy — directly above the '
+                'small circular patch of bone the craniotomy directly above the '
                 'target brain region.\n\n'
                 'The left panels show the exposed craniotomy site across several mice, '
                 'with the dura mater (the tough membrane covering the brain) visible '
@@ -207,7 +207,7 @@ with tab_neuro:
                 'but its body rests naturally and its forepaws remain free to operate '
                 'the response wheel used in the visual decision task.\n\n'
                 'Head-fixation also makes it possible to position optical components — '
-                'like lenses or light sources — at precise, reproducible distances '
+                'like lenses or light sources at precise, reproducible distances '
                 'from the eye and brain across multiple sessions in the same animal, '
                 'which is essential for chronic longitudinal experiments.'
             ),
@@ -217,7 +217,7 @@ with tab_neuro:
             'title': 'Cranial Window Over Time',
             'caption': (
                 'For optical imaging methods, the bone removed during craniotomy is '
-                'replaced not with the skull but with a glass coverslip — creating a '
+                'replaced not with the skull but with a glass coverslip creating a '
                 'transparent chronic cranial window. The coverslip is sealed in place '
                 'with cyanoacrylate glue and dental cement, and the gap beneath is '
                 'filled with CSF or saline to maintain the brain\'s ionic environment.\n\n'
@@ -229,7 +229,7 @@ with tab_neuro:
                 'The four craniotomy photos track the same window from completed surgery '
                 'through the day of surgery, two weeks later, and ten weeks later. '
                 'The progressive clearing and stabilisation of the window over weeks '
-                'is critical — early inflammation can cloud the glass, but a well-healed '
+                'is critical early inflammation can cloud the glass, but a well-healed '
                 'window remains optically transparent for months, allowing repeated '
                 'imaging of the exact same neurons across many sessions. '
                 'Panel F shows the standard home cage where mice recover and live '
@@ -284,8 +284,8 @@ with tab_neuro:
                 'A 473nm laser travels down the fiber, excites the GCaMP population, '
                 'and the returning fluorescence passes back up the same fiber through '
                 'a dichroic mirror and optical chopper to a photodetector and amplifier. '
-                'The output is a single bulk fluorescence signal — the summed activity '
-                'of hundreds of neurons — rather than single-cell resolution, '
+                'The output is a single bulk fluorescence signal the summed activity '
+                'of hundreds of neurons rather than single-cell resolution, '
                 'but the surgery is far less invasive and the signal is extremely stable '
                 'over months of recording.'
             ),
