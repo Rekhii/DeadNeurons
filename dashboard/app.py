@@ -34,7 +34,7 @@ st.markdown("""
 
     .hero-title {
         font-family: 'Syne', sans-serif;
-        font-size: 4.2rem;
+        font-size: 3.8rem;
         font-weight: 700;
         color: #ffffff;
         letter-spacing: -0.05em;
@@ -72,24 +72,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Hero Header
 st.markdown("""
 <div class="hero-wrap">
-    <p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
-
-    <h1 class="hero-title">DeadNeurons</h1>
-
-    <p class="hero-subtitle">
-        Self-improving neural decoder with full MLOps lifecycle<br>
-        Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
-    </p>
-
-    <div class="hero-stats">
-        <span class="hero-chip">84.3% Mean Accuracy</span>
-        <span class="hero-chip">26 Sessions</span>
-        <span class="hero-chip">4,869 Trials</span>
-        <span class="hero-chip">$0 Infrastructure</span>
-    </div>
+<p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
+<h1 class="hero-title">DeadNeurons</h1>
+<p class="hero-subtitle">
+Self-improving neural decoder with full MLOps lifecycle<br>
+Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
+</p>
+<div class="hero-stats">
+<span class="hero-chip">84.3% Mean Accuracy</span>
+<span class="hero-chip">26 Sessions</span>
+<span class="hero-chip">4,869 Trials</span>
+<span class="hero-chip">$0 Infrastructure</span>
+</div>
 </div>
 """, unsafe_allow_html=True)
 
