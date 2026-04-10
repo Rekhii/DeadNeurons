@@ -108,9 +108,8 @@ c5.metric('API Status', 'Live' if api_live else 'Offline')
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # Tabs
-tab1, tab_neuro, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     'Performance',
-    'How Neural Activity Was Captured',
     'Live Prediction',
     'Architecture',
     'Model Registry'
@@ -154,152 +153,6 @@ with tab1:
         'Session 2 (Cori, 619 neurons) is the hardest at 67.7%. '
         'This variance across sessions is exactly what drift detection monitors in production.'
     )
-
-# ── Tab: Neural Activity ────────────────────────────────────────────────────
-with tab_neuro:
-    st.subheader('How Neural Activity Was Captured')
-    st.markdown(
-        'The Steinmetz 2019 dataset recorded spiking activity from hundreds of neurons '
-        'simultaneously across multiple brain regions using **Neuropixels probes**. '
-        'The five figures below are taken directly from the original paper and show '
-        'the full experimental pipeline from surgery to recording hardware.'
-    )
-
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-
-    neural_panels = [
-        {
-            'path': 'figures/1.png',
-            'title': 'Craniotomy & Probe Insertion',
-            'caption': (
-                'Before any recording can happen, the skull must be surgically opened. '
-                'The mouse is anaesthetised and placed in a stereotaxic frame that holds '
-                'the head perfectly still. The scalp is retracted and the skull surface '
-                'is cleaned and dried. A dental drill is then used to thin and remove a '
-                'small circular patch of bone the craniotomy directly above the '
-                'target brain region.\n\n'
-                'The left panels show the exposed craniotomy site across several mice, '
-                'with the dura mater (the tough membrane covering the brain) visible '
-                'underneath. The probe insertion diagram shows the two axes of control: '
-                'the mediolateral angle determines left-right trajectory, and the '
-                'dorsoventral angle controls how steeply the probe descends into tissue. '
-                'By combining these angles, the experimenter can target specific deep '
-                'structures with sub-millimetre precision.\n\n'
-                'The Neuropixels probe itself is a silicon shank roughly 10mm long and '
-                '70µm wide, carrying 960 recording sites. It is lowered slowly — '
-                'typically at 2µm per second — to minimise tissue damage and allow '
-                'neurons to settle around the shank before recording begins.'
-            ),
-        },
-        {
-            'path': 'figures/2.png',
-            'title': 'Head-Fixed Recording Setup',
-            'caption': (
-                'Reliable neural recording requires the brain to be completely motionless '
-                'relative to the probe. Even a 1µm shift can cause a neuron to '
-                'appear or disappear from a recording channel. To achieve this, a small '
-                'titanium or stainless steel metal plate is surgically cemented to the '
-                'skull using dental acrylic during a separate preparatory surgery days '
-                'before the recording session.\n\n'
-                'On recording days, this plate is clamped rigidly into a holder mounted '
-                'on the experimental rig, as shown in both the dorsal (top-down) and '
-                'lateral (side) views here. The mouse cannot move its head at all, '
-                'but its body rests naturally and its forepaws remain free to operate '
-                'the response wheel used in the visual decision task.\n\n'
-                'Head-fixation also makes it possible to position optical components — '
-                'like lenses or light sources at precise, reproducible distances '
-                'from the eye and brain across multiple sessions in the same animal, '
-                'which is essential for chronic longitudinal experiments.'
-            ),
-        },
-        {
-            'path': 'figures/3.png',
-            'title': 'Cranial Window Over Time',
-            'caption': (
-                'For optical imaging methods, the bone removed during craniotomy is '
-                'replaced not with the skull but with a glass coverslip creating a '
-                'transparent chronic cranial window. The coverslip is sealed in place '
-                'with cyanoacrylate glue and dental cement, and the gap beneath is '
-                'filled with CSF or saline to maintain the brain\'s ionic environment.\n\n'
-                'The cross-section diagram (panel E) shows the full implant stack from '
-                'top to bottom: glass coverslip → cement → glue → CSF/saline → bone '
-                'edge → dura mater → arachnoid membrane → pial vessels → glial '
-                'limitans → brain tissue. Each layer must remain intact and undisturbed '
-                'for clean optical access.\n\n'
-                'The four craniotomy photos track the same window from completed surgery '
-                'through the day of surgery, two weeks later, and ten weeks later. '
-                'The progressive clearing and stabilisation of the window over weeks '
-                'is critical early inflammation can cloud the glass, but a well-healed '
-                'window remains optically transparent for months, allowing repeated '
-                'imaging of the exact same neurons across many sessions. '
-                'Panel F shows the standard home cage where mice recover and live '
-                'between recording days.'
-            ),
-        },
-        {
-            'path': 'figures/4.png',
-            'title': 'Two-Photon Imaging of Neural Activity',
-            'caption': (
-                'Two-photon microscopy exploits the physics of nonlinear excitation: '
-                'a pulsed infrared laser (940nm Ti:Sapphire) is focused to a '
-                'diffraction-limited spot inside the brain, and only at that focal '
-                'point is the photon density high enough to excite fluorescent molecules '
-                'via simultaneous absorption of two photons. This confines fluorescence '
-                'to a tiny volume and eliminates out-of-focus background, giving '
-                'cellular resolution even hundreds of microns below the brain surface.\n\n'
-                'The optical path shown in panel (a) includes galvanometer mirrors (GM) '
-                'that scan the beam across the field of view, a resonant mirror (RM) '
-                'for fast scanning, a dichroic mirror (DM) that separates excitation '
-                'and emission light, and a photomultiplier tube (PMT) that detects '
-                'the faint emitted photons with single-photon sensitivity. '
-                'An infrared laser diode (1470nm) provides optional optogenetic '
-                'stimulation through a separate fiber.\n\n'
-                'Panel (b) shows the resulting image: individual cortical neurons '
-                'expressing a genetically encoded calcium indicator (GCaMP) appear '
-                'as bright green circles against a dark background. Panel (c) shows '
-                'raw ΔF/F₀ fluorescence traces for three example cells — each '
-                'transient rise in fluorescence corresponds to a burst of action '
-                'potentials, giving an indirect but reliable readout of spiking activity '
-                'with single-cell resolution.'
-            ),
-        },
-        {
-            'path': 'figures/5.png',
-            'title': 'In Vivo Microendoscopy & Fiber Photometry',
-            'caption': (
-                'Two complementary techniques extend optical recording to brain regions '
-                'too deep to reach with a standard objective lens.\n\n'
-                'In vivo microendoscopy (left) uses a gradient-index (GRIN) lens — '
-                'a thin glass rod that acts as a relay, carrying light deep into the '
-                'brain and back out through a small surgical implant tract. A miniature '
-                'fluorescence microscope sits on top of the animal\'s head, coupled to '
-                'the GRIN lens via a baseplate. A 473nm LED excites GCaMP6.0-expressing '
-                'neurons, and the emitted fluorescence is captured by a CMOS image '
-                'sensor, producing a video of individual neurons firing in a freely '
-                'moving or head-fixed animal. The surgical procedure involves slowly '
-                'aspirating overlying tissue to create a tract, then implanting the '
-                'GRIN lens and allowing weeks of recovery before imaging.\n\n'
-                'Fiber photometry (right) is a simpler but lower-resolution alternative. '
-                'A single optical fiber is implanted into the target region. '
-                'A 473nm laser travels down the fiber, excites the GCaMP population, '
-                'and the returning fluorescence passes back up the same fiber through '
-                'a dichroic mirror and optical chopper to a photodetector and amplifier. '
-                'The output is a single bulk fluorescence signal the summed activity '
-                'of hundreds of neurons rather than single-cell resolution, '
-                'but the surgery is far less invasive and the signal is extremely stable '
-                'over months of recording.'
-            ),
-        },
-    ]
-
-    for panel in neural_panels:
-        st.markdown(f"### {panel['title']}")
-        img_col, txt_col = st.columns([3, 2])
-        with img_col:
-            st.image(panel['path'], use_container_width=True)
-        with txt_col:
-            st.markdown(panel['caption'])
-        st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # Tab 2: Live Prediction
 with tab2:
@@ -396,7 +249,6 @@ with tab3:
         ['Total Cost', '$0', 'Entire stack is free'],
     ], columns=['Component', 'Tool', 'Notes'])
     st.dataframe(tech_df, use_container_width=True, hide_index=True)
-
 # Tab 4: Model Registry
 with tab4:
     st.subheader('Model Registry')
