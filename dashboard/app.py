@@ -6,86 +6,36 @@ import pandas as pd
 API_URL = 'https://deadneurons.onrender.com'
 
 st.set_page_config(
+    page_title='DeadNeurons | Neural Decoder MLOps',
     layout='wide'
 )
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
     .section-divider {
-        border-top: 1px solid #1a1a1a;
-        margin: 28px 0;
-    }
-
-    .hero-wrap {
-        padding: 28px 0 22px 0;
-        border-bottom: 1px solid #1a1a1a;
-        margin-bottom: 10px;
-    }
-
-    .hero-kicker {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.70rem;
-        color: #5a5a5a;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        margin: 0 0 14px 0;
-    }
-
-    .hero-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 3.8rem;
-        font-weight: 800;
-        color: #ffffff;
-        letter-spacing: -0.05em;
-        line-height: 0.95;
-        margin: 0;
-    }
-
-    .hero-subtitle {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.86rem;
-        color: #7a7a7a;
-        line-height: 1.8;
-        margin: 18px 0 0 0;
-        max-width: 760px;
-    }
-
-    .hero-stats {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 24px;
-    }
-
-    .hero-chip {
-        border: 1px solid #222222;
-        background: #0b0b0b;
-        color: #a0a0a0;
-        padding: 7px 14px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        border-radius: 2px;
+        border-top: 1px solid #2d2d44;
+        margin: 30px 0;
     }
 </style>
 """, unsafe_allow_html=True)
 
+# Hero Header
 st.markdown("""
-<div class="hero-wrap">
-<h1 class="hero-title">DeadNeurons</h1>
-<p class="hero-subtitle">
-Self-improving neural decoder with full MLOps lifecycle<br>
-Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
-</p>
-<div class="hero-stats">
-<span class="hero-chip">84.3% Mean Accuracy</span>
-<span class="hero-chip">26 Sessions</span>
-<span class="hero-chip">4,869 Trials</span>
-<span class="hero-chip">$0 Infrastructure</span>
-</div>
+<div style="text-align: center; padding: 40px 0 20px 0;">
+    <h1 style="font-size: 4rem; font-weight: 800; margin: 0; 
+    background: linear-gradient(90deg, #4ade80, #22d3ee); 
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    DeadNeurons</h1>
+    <p style="font-size: 1.3rem; color: #888888; margin-top: 8px;">
+    Self-improving neural decoder with full MLOps lifecycle<br>
+    Built in pure NumPy. Trained on real Neuropixels brain recordings. Deployed end to end.
+    </p>
+    <p style="margin-top: 16px;">
+    <span style="background: #065f46; color: #4ade80; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">84.3% Mean Accuracy</span>
+    <span style="background: #1e1b4b; color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">26 Sessions</span>
+    <span style="background: #312e81; color: #c4b5fd; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">4,869 Trials</span>
+    <span style="background: #064e3b; color: #6ee7b7; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin: 0 4px;">$0 Infrastructure</span>
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -261,9 +211,55 @@ with tab2:
 # Tab 3: Architecture
 with tab3:
     st.subheader('System Architecture')
-    st.image('figures/System_Arch.png', use_container_width=True)
 
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    arch_col1, arch_col2 = st.columns(2)
+
+    with arch_col1:
+        st.markdown('**Data Pipeline**')
+        st.code(
+            'Steinmetz 2019 Neuropixels Data\n'
+            '  26 sessions, 7 mice, 4869 trials\n'
+            '  474-1769 neurons per session\n'
+            '       |\n'
+            '       v\n'
+            'Feature Extraction\n'
+            '  Mean firing rates in 4 time windows:\n'
+            '  pre-stimulus | stimulus | decision | post\n'
+            '       |\n'
+            '       v\n'
+            'PCA Dimensionality Reduction\n'
+            '  2936+ features -> 50 components\n'
+            '       |\n'
+            '       v\n'
+            'Self-Improving Classifier\n'
+            '  50 input -> 32 hidden (ReLU) -> 1 output (Sigmoid)\n'
+            '  Observe -> Diagnose -> Correct each epoch',
+            language=None
+        )
+
+    with arch_col2:
+        st.markdown('**MLOps Pipeline**')
+        st.code(
+            'GitHub Repository\n'
+            '  CI/CD via GitHub Actions\n'
+            '       |\n'
+            '       v\n'
+            'Experiment Tracker (SQLite)\n'
+            '  Logs every run: hyperparams, metrics, git commit\n'
+            '       |\n'
+            '       v\n'
+            'Model Registry (Hugging Face Hub)\n'
+            '  Versioned weights, auto-promotion logic\n'
+            '       |\n'
+            '       v\n'
+            'FastAPI on Render.com (Docker)\n'
+            '  /predict  /health  /model/info\n'
+            '       |\n'
+            '       v\n'
+            'Monitoring Dashboard (Streamlit)\n'
+            '  Live metrics, drift detection, predictions',
+            language=None
+        )
 
     st.markdown('**Self-Improvement Cycle**')
     si1, si2, si3 = st.columns(3)
@@ -299,6 +295,7 @@ with tab3:
         ['Total Cost', '$0', 'Entire stack is free'],
     ], columns=['Component', 'Tool', 'Notes'])
     st.dataframe(tech_df, use_container_width=True, hide_index=True)
+
 # Tab 4: Model Registry
 with tab4:
     st.subheader('Model Registry')
@@ -342,11 +339,10 @@ with tab4:
 # Footer
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 st.markdown(
-    '<p style="text-align: center; color: #666666; font-family: \'DM Mono\', monospace; '
-    'font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;">'
-    'Built by <a href="https://github.com/Rekhii" style="color: #aaaaaa; text-decoration: none;">Rekhi</a> '
-    '&nbsp;&nbsp;&nbsp; <a href="https://github.com/Rekhii/DeadNeurons" style="color: #aaaaaa; text-decoration: none;">GitHub</a> '
-    '&nbsp;&nbsp;&nbsp; <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #aaaaaa; text-decoration: none;">HF Hub</a>'
+    '<p style="text-align: center; color: #666666;">'
+    'Built by <a href="https://github.com/Rekhii" style="color: #4ade80;">Rekhi</a> '
+    ' <a href="https://github.com/Rekhii/DeadNeurons" style="color: #4ade80;">GitHub</a> '
+    ' <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #4ade80;">HF Hub</a>'
     '</p>',
     unsafe_allow_html=True
 )
