@@ -204,29 +204,30 @@ st.markdown("""
 
 # Hero Header
 st.markdown("""
-<div style="text-align: center; padding: 60px 0 24px 0; border-bottom: 1px solid #1a1a1a;">
-    <p style="font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #444444; 
+<div style="padding: 60px 0 24px 0; border-bottom: 1px solid #1a1a1a;">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #444444; 
     letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;">
-    <h1 style="font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; 
+    Neural Decoder · MLOps · Neuropixels</p>
+    <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 800; 
     margin: 0; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">
     DeadNeurons</h1>
-    <p style="font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #555555; 
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: #555555; 
     margin-top: 16px; line-height: 1.7;">
     Self-improving neural decoder with full MLOps lifecycle<br>
     Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
     </p>
-    <div style="margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+    <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
         <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
         text-transform: uppercase;">84.3% Mean Accuracy</span>
         <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
         text-transform: uppercase;">26 Sessions</span>
         <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
         text-transform: uppercase;">4,869 Trials</span>
         <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
         text-transform: uppercase;">$0 Infrastructure</span>
     </div>
 </div>
