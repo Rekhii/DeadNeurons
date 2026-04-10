@@ -7,7 +7,6 @@ API_URL = 'https://deadneurons.onrender.com'
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
 
     /* ── Base ── */
     html, body, [class*="css"] {
@@ -208,7 +207,6 @@ st.markdown("""
 <div style="text-align: center; padding: 60px 0 24px 0; border-bottom: 1px solid #1a1a1a;">
     <p style="font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #444444; 
     letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;">
-    Neural Decoder · MLOps · Neuropixels</p>
     <h1 style="font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; 
     margin: 0; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">
     DeadNeurons</h1>
