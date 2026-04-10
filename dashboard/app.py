@@ -209,13 +209,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Hero Header
-# Hero Header
 st.markdown("""
 <div style="
     text-align: center;
-    padding: 56px 0 28px 0;
-    border-bottom: 1px solid #161616;
-    margin-bottom: 8px;
+    padding: 56px 0 24px 0;
+    border-bottom: 1px solid #1a1a1a;
+    background: transparent;
 ">
     <p style="
         font-family: 'DM Mono', monospace;
@@ -223,19 +222,19 @@ st.markdown("""
         color: #4a4a4a;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        margin: 0 0 18px 0;
+        margin: 0 0 16px 0;
     ">
         Neural Decoder · MLOps · Neuropixels
     </p>
 
     <h1 style="
         font-family: 'Syne', sans-serif;
-        font-size: 4.4rem;
+        font-size: 4.5rem;
         font-weight: 700;
         margin: 0;
         color: #ffffff;
         letter-spacing: -0.05em;
-        line-height: 0.95;
+        line-height: 0.96;
     ">
         DeadNeurons
     </h1>
@@ -245,24 +244,24 @@ st.markdown("""
         font-size: 0.84rem;
         color: #6a6a6a;
         margin: 18px auto 0 auto;
-        line-height: 1.8;
-        max-width: 780px;
+        line-height: 1.75;
+        max-width: 760px;
     ">
         Self-improving neural decoder with full MLOps lifecycle<br>
         Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
     </p>
 
     <div style="
-        margin-top: 28px;
+        margin-top: 26px;
         display: flex;
         justify-content: center;
         gap: 10px;
         flex-wrap: wrap;
     ">
         <span style="
-            border: 1px solid #202020;
+            border: 1px solid #222222;
             background: #0b0b0b;
-            color: #a8a8a8;
+            color: #9a9a9a;
             padding: 7px 16px;
             font-family: 'DM Mono', monospace;
             font-size: 0.68rem;
@@ -273,9 +272,9 @@ st.markdown("""
         </span>
 
         <span style="
-            border: 1px solid #202020;
+            border: 1px solid #222222;
             background: #0b0b0b;
-            color: #a8a8a8;
+            color: #9a9a9a;
             padding: 7px 16px;
             font-family: 'DM Mono', monospace;
             font-size: 0.68rem;
@@ -286,9 +285,9 @@ st.markdown("""
         </span>
 
         <span style="
-            border: 1px solid #202020;
+            border: 1px solid #222222;
             background: #0b0b0b;
-            color: #a8a8a8;
+            color: #9a9a9a;
             padding: 7px 16px;
             font-family: 'DM Mono', monospace;
             font-size: 0.68rem;
@@ -299,9 +298,9 @@ st.markdown("""
         </span>
 
         <span style="
-            border: 1px solid #202020;
+            border: 1px solid #222222;
             background: #0b0b0b;
-            color: #a8a8a8;
+            color: #9a9a9a;
             padding: 7px 16px;
             font-family: 'DM Mono', monospace;
             font-size: 0.68rem;
