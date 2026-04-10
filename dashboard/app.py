@@ -10,231 +10,159 @@ st.set_page_config(
     layout='wide'
 )
 
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
-
-    /* ── Base ── */
-    html, body, [class*="css"] {
-        font-family: 'DM Mono', monospace;
-        background-color: #080808;
-        color: #e8e8e8;
-    }
-
-    .stApp {
-        background-color: #080808;
-    }
-
-    /* ── Hide Streamlit chrome ── */
-    #MainMenu, footer, header { visibility: hidden; }
-
-    /* ── Headings ── */
-    h1, h2, h3, h4 {
-        font-family: 'Syne', sans-serif;
-        color: #ffffff;
-        letter-spacing: -0.02em;
-    }
-
-    /* ── Metrics ── */
-    [data-testid="metric-container"] {
-        background: #111111;
-        border: 1px solid #222222;
-        border-radius: 2px;
-        padding: 20px 24px;
-    }
-    [data-testid="metric-container"] label {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.7rem;
-        color: #555555;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-    }
-    [data-testid="metric-container"] [data-testid="stMetricValue"] {
-        font-family: 'Syne', sans-serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #ffffff;
-    }
-
-    /* ── Tabs ── */
-    [data-testid="stTabs"] [role="tablist"] {
-        border-bottom: 1px solid #1f1f1f;
-        gap: 0;
-    }
-    [data-testid="stTabs"] [role="tab"] {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.78rem;
-        color: #444444;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        padding: 12px 24px;
-        border-radius: 0;
-        border: none;
-        background: transparent;
-    }
-    [data-testid="stTabs"] [role="tab"][aria-selected="true"] {
-        color: #ffffff;
-        border-bottom: 2px solid #ffffff;
-        background: transparent;
-    }
-    [data-testid="stTabs"] [role="tab"]:hover {
-        color: #aaaaaa;
-        background: transparent;
-    }
-
-    /* ── Buttons ── */
-    .stButton > button {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        background: #111111;
-        color: #ffffff;
-        border: 1px solid #2a2a2a;
-        border-radius: 2px;
-        padding: 12px 24px;
-        transition: all 0.2s ease;
-    }
-    .stButton > button:hover {
-        background: #ffffff;
-        color: #080808;
-        border-color: #ffffff;
-    }
-    .stButton > button[kind="primary"] {
-        background: #ffffff;
-        color: #080808;
-        border-color: #ffffff;
-    }
-    .stButton > button[kind="primary"]:hover {
-        background: #cccccc;
-        border-color: #cccccc;
-    }
-
-    /* ── Dataframes / Tables ── */
-    [data-testid="stDataFrame"] {
-        border: 1px solid #1f1f1f;
-        border-radius: 2px;
-    }
-    [data-testid="stDataFrame"] th {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #555555;
-        background: #0d0d0d;
-        border-bottom: 1px solid #1f1f1f;
-    }
-    [data-testid="stDataFrame"] td {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.82rem;
-        color: #cccccc;
-        background: #0a0a0a;
-        border-bottom: 1px solid #141414;
-    }
-
-    /* ── Text area & inputs ── */
-    .stTextArea textarea {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.78rem;
-        background: #0d0d0d;
-        color: #cccccc;
-        border: 1px solid #222222;
-        border-radius: 2px;
-    }
-    .stTextArea textarea:focus {
-        border-color: #ffffff;
-        box-shadow: none;
-    }
-
-    /* ── Info / Warning boxes ── */
-    [data-testid="stAlert"] {
-        background: #0d0d0d;
-        border: 1px solid #1f1f1f;
-        border-left: 3px solid #ffffff;
-        border-radius: 2px;
-        font-family: 'DM Mono', monospace;
-        font-size: 0.82rem;
-        color: #aaaaaa;
-    }
-
-    /* ── Code blocks ── */
-    .stCodeBlock, pre, code {
-        font-family: 'DM Mono', monospace !important;
-        background: #0d0d0d !important;
-        border: 1px solid #1f1f1f;
-        border-radius: 2px;
-        color: #cccccc !important;
-    }
-
-    /* ── Divider ── */
-    .section-divider {
+st.markdown(
+    """
+    <div style="
+        text-align: center;
+        padding: 22px 0 10px 0;
         border-top: 1px solid #1a1a1a;
-        margin: 36px 0;
-    }
+        margin-top: 32px;
+    ">
+        <p style="
+            margin: 0 0 8px 0;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        ">
+            DeadNeurons
+        </p>
 
-    /* ── Captions ── */
-    .stCaption, [data-testid="stCaptionContainer"] {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.72rem;
-        color: #444444;
-        letter-spacing: 0.05em;
-    }
-
-    /* ── Link buttons ── */
-    .stLinkButton a {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        background: transparent;
-        color: #ffffff;
-        border: 1px solid #2a2a2a;
-        border-radius: 2px;
-        transition: all 0.2s ease;
-    }
-    .stLinkButton a:hover {
-        background: #ffffff;
-        color: #080808;
-        border-color: #ffffff;
-    }
-
-    /* ── Bar chart ── */
-    [data-testid="stVegaLiteChart"] {
-        border: 1px solid #1f1f1f;
-        border-radius: 2px;
-        padding: 8px;
-        background: #0a0a0a;
-    }
-</style>
-""", unsafe_allow_html=True)
+        <p style="
+            margin: 0;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.70rem;
+            color: #4f4f4f;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        ">
+            Built by
+            <a href="https://github.com/Rekhii" style="
+                color: #b8b8b8;
+                text-decoration: none;
+                margin: 0 8px;
+            ">Rekhi</a>
+            ·
+            <a href="https://github.com/Rekhii/DeadNeurons" style="
+                color: #b8b8b8;
+                text-decoration: none;
+                margin: 0 8px;
+            ">GitHub</a>
+            ·
+            <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="
+                color: #b8b8b8;
+                text-decoration: none;
+                margin: 0 8px;
+            ">HF Hub</a>
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Hero Header
+# Hero Header
 st.markdown("""
-<div style="text-align: center; padding: 60px 0 24px 0; border-bottom: 1px solid #1a1a1a;">
-    <p style="font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #444444; 
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;">
-    Neural Decoder · MLOps · Neuropixels</p>
-    <h1 style="font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; 
-    margin: 0; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">
-    DeadNeurons</h1>
-    <p style="font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #555555; 
-    margin-top: 16px; line-height: 1.7;">
-    Self-improving neural decoder with full MLOps lifecycle<br>
-    Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
+<div style="
+    text-align: center;
+    padding: 56px 0 28px 0;
+    border-bottom: 1px solid #161616;
+    margin-bottom: 8px;
+">
+    <p style="
+        font-family: 'DM Mono', monospace;
+        font-size: 0.68rem;
+        color: #4a4a4a;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin: 0 0 18px 0;
+    ">
+        Neural Decoder · MLOps · Neuropixels
     </p>
-    <div style="margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
-        text-transform: uppercase;">84.3% Mean Accuracy</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
-        text-transform: uppercase;">26 Sessions</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
-        text-transform: uppercase;">4,869 Trials</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
-        text-transform: uppercase;">$0 Infrastructure</span>
+
+    <h1 style="
+        font-family: 'Syne', sans-serif;
+        font-size: 4.4rem;
+        font-weight: 700;
+        margin: 0;
+        color: #ffffff;
+        letter-spacing: -0.05em;
+        line-height: 0.95;
+    ">
+        DeadNeurons
+    </h1>
+
+    <p style="
+        font-family: 'DM Mono', monospace;
+        font-size: 0.84rem;
+        color: #6a6a6a;
+        margin: 18px auto 0 auto;
+        line-height: 1.8;
+        max-width: 780px;
+    ">
+        Self-improving neural decoder with full MLOps lifecycle<br>
+        Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
+    </p>
+
+    <div style="
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    ">
+        <span style="
+            border: 1px solid #202020;
+            background: #0b0b0b;
+            color: #a8a8a8;
+            padding: 7px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        ">
+            84.3% Mean Accuracy
+        </span>
+
+        <span style="
+            border: 1px solid #202020;
+            background: #0b0b0b;
+            color: #a8a8a8;
+            padding: 7px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        ">
+            26 Sessions
+        </span>
+
+        <span style="
+            border: 1px solid #202020;
+            background: #0b0b0b;
+            color: #a8a8a8;
+            padding: 7px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        ">
+            4,869 Trials
+        </span>
+
+        <span style="
+            border: 1px solid #202020;
+            background: #0b0b0b;
+            color: #a8a8a8;
+            padding: 7px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        ">
+            $0 Infrastructure
+        </span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -492,11 +420,11 @@ with tab4:
 # Footer
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 st.markdown(
-    '<p style="text-align: center; font-family: DM Mono, monospace; font-size: 0.72rem; '
-    'color: #333333; letter-spacing: 0.1em; text-transform: uppercase;">'
-    'Built by <a href="https://github.com/Rekhii" style="color: #888888;">Rekhi</a> '
-    '&nbsp;·&nbsp; <a href="https://github.com/Rekhii/DeadNeurons" style="color: #888888;">GitHub</a> '
-    '&nbsp;·&nbsp; <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #888888;">HF Hub</a>'
+    '<p style="text-align: center; color: #666666; font-family: \'DM Mono\', monospace; '
+    'font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;">'
+    'Built by <a href="https://github.com/Rekhii" style="color: #aaaaaa; text-decoration: none;">Rekhi</a> '
+    '&nbsp;·&nbsp; <a href="https://github.com/Rekhii/DeadNeurons" style="color: #aaaaaa; text-decoration: none;">GitHub</a> '
+    '&nbsp;·&nbsp; <a href="https://huggingface.co/datasets/rekhi/deadneurons-registry" style="color: #aaaaaa; text-decoration: none;">HF Hub</a>'
     '</p>',
     unsafe_allow_html=True
 )
