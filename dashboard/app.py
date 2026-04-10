@@ -58,7 +58,6 @@ try:
 except:
     pass
 
-# Top metrics row
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 results = {
@@ -107,28 +106,25 @@ c5.metric('API Status', 'Live' if api_live else 'Offline')
 
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
-# Tabs
-tab1, tab2, tab3, tab4 = st.tabs([
+# Tabs — Neural Activity inserted between Performance and Live Prediction
+tab1, tab_neuro, tab2, tab3, tab4 = st.tabs([
     'Performance',
+    '🧠 Neural Activity',
     'Live Prediction',
     'Architecture',
     'Model Registry'
 ])
 
-# Tab 1: Performance
+# ── Tab 1: Performance ──────────────────────────────────────────────────────
 with tab1:
     st.subheader('Decoding Accuracy Across 26 Recording Sessions')
     st.caption('Each session is a separate Neuropixels recording from a mouse performing a visual decision task.')
 
     df = pd.DataFrame(results['per_session'])
-
-    chart_df = df[['session', 'acc']].copy()
-    chart_df = chart_df.set_index('session')
-
+    chart_df = df[['session', 'acc']].copy().set_index('session')
     st.bar_chart(chart_df['acc'], height=350, color='#4ade80')
 
     col_a, col_b = st.columns(2)
-
     with col_a:
         st.subheader('Average Accuracy by Mouse')
         mouse_df = df.groupby('mouse').agg(
@@ -154,7 +150,91 @@ with tab1:
         'This variance across sessions is exactly what drift detection monitors in production.'
     )
 
-# Tab 2: Live Prediction
+# ── Tab: Neural Activity ────────────────────────────────────────────────────
+with tab_neuro:
+    st.subheader('🧠 How Mice Neural Activity Was Captured')
+    st.markdown(
+        'The Steinmetz 2019 dataset recorded spiking activity from hundreds of neurons '
+        'simultaneously across multiple brain regions using **Neuropixels probes** — '
+        'silicon shanks thinner than a human hair, each carrying 960 electrodes. '
+        'The five visualizations below walk through exactly how that raw electrical '
+        'signal becomes the feature vectors our decoder learns from.'
+    )
+
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+
+    neural_panels = [
+        {
+            'path': 'figures/1.png',
+            'title': 'Step 1 — Raw Spike Raster',
+            'caption': (
+                'Each row is a single neuron; each dot is an action potential (spike). '
+                'Time runs left to right, aligned to stimulus onset at t = 0. '
+                'This raster is the rawest view of neural data — thousands of binary '
+                'events per trial, one per neuron per millisecond. '
+                'The decoder never sees this directly; it\'s the starting point '
+                'everything else is derived from.'
+            ),
+        },
+        {
+            'path': 'figures/2.png',
+            'title': 'Step 2 — Population Firing Rate',
+            'caption': (
+                'Averaging spikes across all neurons in a short sliding window gives '
+                'the population firing rate — a smoother signal that reveals when the '
+                'brain as a whole ramps up activity. You can clearly see the '
+                'stimulus-evoked surge shortly after t = 0, followed by a decision-related '
+                'peak. This is the backbone of the 4-window feature extraction used in training.'
+            ),
+        },
+        {
+            'path': 'figures/3.png',
+            'title': 'Step 3 — Per-Neuron Mean Firing Rates (4 Windows)',
+            'caption': (
+                'Rather than keeping the full time series, we summarise each neuron '
+                'with its mean firing rate in four biologically meaningful windows: '
+                'pre-stimulus, stimulus, decision, and post-decision. '
+                'A session with 734 neurons therefore produces 734 × 4 = 2,936 features per trial. '
+                'This dimensionality is still too high for a small network, which is why PCA follows.'
+            ),
+        },
+        {
+            'path': 'figures/4.png',
+            'title': 'Step 4 — PCA Projection to 50 Components',
+            'caption': (
+                'Principal Component Analysis compresses 2,936+ features down to the '
+                '50 directions of greatest variance across all trials. '
+                'The scatter here shows trials in PC1–PC2 space, coloured by the '
+                'mouse\'s choice (left vs right). The visible clustering is the '
+                'geometric signal our two-layer network exploits — if the classes '
+                'separate in PCA space, a linear boundary (plus one hidden layer) '
+                'is often enough to decode the decision.'
+            ),
+        },
+        {
+            'path': 'figures/5.png',
+            'title': 'Step 5 — Single-Trial Decoder Evidence',
+            'caption': (
+                'The final panel shows the sigmoid output of the trained network on '
+                'individual held-out trials. Values above 0.5 are classified as RIGHT, '
+                'below as LEFT. The tight clustering near 0 and 1 on correct trials '
+                'reflects high-confidence predictions, while the spread near 0.5 marks '
+                'the hard trials — exactly where the 67–98% accuracy range comes from '
+                'depending on the session.'
+            ),
+        },
+    ]
+
+    for panel in neural_panels:
+        st.markdown(f"### {panel['title']}")
+        img_col, txt_col = st.columns([3, 2])
+        with img_col:
+            st.image(panel['path'], use_container_width=True)
+        with txt_col:
+            st.markdown(panel['caption'])
+        st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+
+# ── Tab 2: Live Prediction ──────────────────────────────────────────────────
 with tab2:
     st.subheader('Send Neural Features to the Deployed Model')
 
@@ -165,7 +245,6 @@ with tab2:
         )
 
     pred_col1, pred_col2 = st.columns([2, 1])
-
     with pred_col1:
         if st.button('Generate Random Trial', use_container_width=True):
             rng = np.random.default_rng()
@@ -197,7 +276,6 @@ with tab2:
                     timeout=120
                 )
                 result = response.json()
-
                 if 'prediction' in result:
                     r1, r2, r3 = st.columns(3)
                     r1.metric('Decision', result['label'].upper())
@@ -208,58 +286,12 @@ with tab2:
             except Exception as e:
                 st.error(f"Request failed: {e}")
 
-# Tab 3: Architecture
+# ── Tab 3: Architecture ─────────────────────────────────────────────────────
 with tab3:
     st.subheader('System Architecture')
+    st.image('figures/System_Arch.png', use_container_width=True)
 
-    arch_col1, arch_col2 = st.columns(2)
-
-    with arch_col1:
-        st.markdown('**Data Pipeline**')
-        st.code(
-            'Steinmetz 2019 Neuropixels Data\n'
-            '  26 sessions, 7 mice, 4869 trials\n'
-            '  474-1769 neurons per session\n'
-            '       |\n'
-            '       v\n'
-            'Feature Extraction\n'
-            '  Mean firing rates in 4 time windows:\n'
-            '  pre-stimulus | stimulus | decision | post\n'
-            '       |\n'
-            '       v\n'
-            'PCA Dimensionality Reduction\n'
-            '  2936+ features -> 50 components\n'
-            '       |\n'
-            '       v\n'
-            'Self-Improving Classifier\n'
-            '  50 input -> 32 hidden (ReLU) -> 1 output (Sigmoid)\n'
-            '  Observe -> Diagnose -> Correct each epoch',
-            language=None
-        )
-
-    with arch_col2:
-        st.markdown('**MLOps Pipeline**')
-        st.code(
-            'GitHub Repository\n'
-            '  CI/CD via GitHub Actions\n'
-            '       |\n'
-            '       v\n'
-            'Experiment Tracker (SQLite)\n'
-            '  Logs every run: hyperparams, metrics, git commit\n'
-            '       |\n'
-            '       v\n'
-            'Model Registry (Hugging Face Hub)\n'
-            '  Versioned weights, auto-promotion logic\n'
-            '       |\n'
-            '       v\n'
-            'FastAPI on Render.com (Docker)\n'
-            '  /predict  /health  /model/info\n'
-            '       |\n'
-            '       v\n'
-            'Monitoring Dashboard (Streamlit)\n'
-            '  Live metrics, drift detection, predictions',
-            language=None
-        )
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     st.markdown('**Self-Improvement Cycle**')
     si1, si2, si3 = st.columns(3)
@@ -296,7 +328,7 @@ with tab3:
     ], columns=['Component', 'Tool', 'Notes'])
     st.dataframe(tech_df, use_container_width=True, hide_index=True)
 
-# Tab 4: Model Registry
+# ── Tab 4: Model Registry ───────────────────────────────────────────────────
 with tab4:
     st.subheader('Model Registry')
 
