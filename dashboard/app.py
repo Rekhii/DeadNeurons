@@ -109,7 +109,7 @@ st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 # Tabs — Neural Activity inserted between Performance and Live Prediction
 tab1, tab_neuro, tab2, tab3, tab4 = st.tabs([
     'Performance',
-    '🧠 Neural Activity',
+    'How Neural Activity Was Captured',
     'Live Prediction',
     'Architecture',
     'Model Registry'
@@ -152,13 +152,12 @@ with tab1:
 
 # ── Tab: Neural Activity ────────────────────────────────────────────────────
 with tab_neuro:
-    st.subheader('🧠 How Mice Neural Activity Was Captured')
+    st.subheader('Neural Activity — How the Data Was Captured')
     st.markdown(
         'The Steinmetz 2019 dataset recorded spiking activity from hundreds of neurons '
-        'simultaneously across multiple brain regions using **Neuropixels probes** — '
-        'silicon shanks thinner than a human hair, each carrying 960 electrodes. '
-        'The five visualizations below walk through exactly how that raw electrical '
-        'signal becomes the feature vectors our decoder learns from.'
+        'simultaneously across multiple brain regions using **Neuropixels probes**. '
+        'The five figures below are taken directly from the original paper and show '
+        'the full experimental pipeline — from surgery to recording hardware.'
     )
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
@@ -166,61 +165,59 @@ with tab_neuro:
     neural_panels = [
         {
             'path': 'figures/1.png',
-            'title': 'Step 1 — Raw Spike Raster',
+            'title': 'Step 1 — Craniotomy & Probe Insertion',
             'caption': (
-                'Each row is a single neuron; each dot is an action potential (spike). '
-                'Time runs left to right, aligned to stimulus onset at t = 0. '
-                'This raster is the rawest view of neural data — thousands of binary '
-                'events per trial, one per neuron per millisecond. '
-                'The decoder never sees this directly; it\'s the starting point '
-                'everything else is derived from.'
+                'Surgical preparation for Neuropixels recording. The left panels show '
+                'the exposed skull and craniotomy site across multiple mice. The diagram '
+                'shows probe insertion angles along the mediolateral and dorsoventral axes, '
+                'allowing precise targeting of brain regions. The right panels show '
+                'the implant site at different post-surgery timepoints.'
             ),
         },
         {
             'path': 'figures/2.png',
-            'title': 'Step 2 — Population Firing Rate',
+            'title': 'Step 2 — Head-Fixed Recording Setup',
             'caption': (
-                'Averaging spikes across all neurons in a short sliding window gives '
-                'the population firing rate — a smoother signal that reveals when the '
-                'brain as a whole ramps up activity. You can clearly see the '
-                'stimulus-evoked surge shortly after t = 0, followed by a decision-related '
-                'peak. This is the backbone of the 4-window feature extraction used in training.'
+                'The mouse is head-fixed using a metal plate surgically attached to the skull. '
+                'This immobilises the head completely during recording, eliminating motion '
+                'artifacts while the animal still performs the visual decision task with its paws. '
+                'Both dorsal (top) and lateral (side) views of the setup are shown.'
             ),
         },
         {
             'path': 'figures/3.png',
-            'title': 'Step 3 — Per-Neuron Mean Firing Rates (4 Windows)',
+            'title': 'Step 3 — Cranial Window Over Time',
             'caption': (
-                'Rather than keeping the full time series, we summarise each neuron '
-                'with its mean firing rate in four biologically meaningful windows: '
-                'pre-stimulus, stimulus, decision, and post-decision. '
-                'A session with 734 neurons therefore produces 734 × 4 = 2,936 features per trial. '
-                'This dimensionality is still too high for a small network, which is why PCA follows.'
+                'Chronic cranial windows allow repeated access to the same brain region across weeks. '
+                'The four panels show the window from completed surgery through day of surgery, '
+                'two weeks, and ten weeks after — confirming long-term optical clarity. '
+                'The cross-section diagram (E) shows the layered implant structure: '
+                'glass coverslip, cement, CSF/saline, bone, dura, and brain tissue. '
+                'Panel F shows the mouse home cage environment.'
             ),
         },
         {
             'path': 'figures/4.png',
-            'title': 'Step 4 — PCA Projection to 50 Components',
+            'title': 'Step 4 — Two-Photon Imaging of Neural Activity',
             'caption': (
-                'Principal Component Analysis compresses 2,936+ features down to the '
-                '50 directions of greatest variance across all trials. '
-                'The scatter here shows trials in PC1–PC2 space, coloured by the '
-                'mouse\'s choice (left vs right). The visible clustering is the '
-                'geometric signal our two-layer network exploits — if the classes '
-                'separate in PCA space, a linear boundary (plus one hidden layer) '
-                'is often enough to decode the decision.'
+                'A two-photon microscope (940nm Ti:S laser) scans fluorescent neurons '
+                'expressing a calcium indicator. Panel (b) shows the resulting field of view — '
+                'individual neurons lit up as bright green dots in cortex. '
+                'Panel (c) shows raw ΔF/F₀ traces for three example neurons, '
+                'each trace capturing the calcium fluorescence signal that '
+                'corresponds to underlying spiking activity.'
             ),
         },
         {
             'path': 'figures/5.png',
-            'title': 'Step 5 — Single-Trial Decoder Evidence',
+            'title': 'Step 5 — In Vivo Microendoscopy & Fiber Photometry',
             'caption': (
-                'The final panel shows the sigmoid output of the trained network on '
-                'individual held-out trials. Values above 0.5 are classified as RIGHT, '
-                'below as LEFT. The tight clustering near 0 and 1 on correct trials '
-                'reflects high-confidence predictions, while the spread near 0.5 marks '
-                'the hard trials — exactly where the 67–98% accuracy range comes from '
-                'depending on the session.'
+                'Two complementary optical recording methods used in the dataset. '
+                'Left: in vivo microendoscopy uses a GRIN lens and miniature microscope '
+                'to image GCaMP6.0-expressing neurons deep in the brain via a CMOS sensor. '
+                'Right: fiber photometry uses a 473nm laser and optical fiber probe '
+                'to measure bulk fluorescence from a neuronal population, '
+                'read out through a photodetector and amplifier to a DAQ system.'
             ),
         },
     ]
@@ -233,58 +230,6 @@ with tab_neuro:
         with txt_col:
             st.markdown(panel['caption'])
         st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-
-# ── Tab 2: Live Prediction ──────────────────────────────────────────────────
-with tab2:
-    st.subheader('Send Neural Features to the Deployed Model')
-
-    if not api_live:
-        st.warning(
-            'The API is on Render free tier and may be sleeping. '
-            'Click Predict to wake it up. First request takes about 50 seconds.'
-        )
-
-    pred_col1, pred_col2 = st.columns([2, 1])
-    with pred_col1:
-        if st.button('Generate Random Trial', use_container_width=True):
-            rng = np.random.default_rng()
-            st.session_state['demo_features'] = rng.normal(0, 1, 50).tolist()
-
-        features_text = st.text_area(
-            'Features (50 PCA components)',
-            value=', '.join([f'{x:.3f}' for x in st.session_state.get('demo_features', [0.0]*50)]),
-            height=120
-        )
-
-    with pred_col2:
-        st.markdown('**How it works:**')
-        st.markdown(
-            '1. Raw spike data from 734+ neurons\n'
-            '2. Mean firing rates in 4 time windows\n'
-            '3. PCA reduces to 50 components\n'
-            '4. Self-improving classifier predicts\n'
-            '5. Output: LEFT or RIGHT decision'
-        )
-
-    if st.button('Predict', type='primary', use_container_width=True):
-        with st.spinner('Sending to API...'):
-            try:
-                features = [float(x.strip()) for x in features_text.split(',')]
-                response = requests.post(
-                    f'{API_URL}/predict',
-                    json={'features': features},
-                    timeout=120
-                )
-                result = response.json()
-                if 'prediction' in result:
-                    r1, r2, r3 = st.columns(3)
-                    r1.metric('Decision', result['label'].upper())
-                    r2.metric('Confidence', f"{result['confidence']:.1%}")
-                    r3.metric('Raw Prediction', result['prediction'])
-                else:
-                    st.error(f"API Error: {result}")
-            except Exception as e:
-                st.error(f"Request failed: {e}")
 
 # ── Tab 3: Architecture ─────────────────────────────────────────────────────
 with tab3:
