@@ -204,35 +204,31 @@ st.markdown("""
 
 # Hero Header
 st.markdown("""
-<div style="padding: 60px 0 24px 0; border-bottom: 1px solid #1a1a1a;">
-    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #444444; 
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;">
-    Neural Decoder · MLOps · Neuropixels</p>
-    <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 800; 
-    margin: 0; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">
+<div style="padding: 18px 0 20px 0; border-bottom: 1px solid #1a1a1a;">
+    <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 4.2rem; font-weight: 800; 
+    margin: 0 0 10px 0; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">
     DeadNeurons</h1>
-    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: #555555; 
-    margin-top: 16px; line-height: 1.7;">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #555555; 
+    margin: 0 0 18px 0; line-height: 1.6;">
     Self-improving neural decoder with full MLOps lifecycle<br>
     Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
     </p>
-    <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <span style="border: 1px solid #222222; color: #888888; padding: 5px 14px; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; 
         text-transform: uppercase;">84.3% Mean Accuracy</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        <span style="border: 1px solid #222222; color: #888888; padding: 5px 14px; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; 
         text-transform: uppercase;">26 Sessions</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        <span style="border: 1px solid #222222; color: #888888; padding: 5px 14px; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; 
         text-transform: uppercase;">4,869 Trials</span>
-        <span style="border: 1px solid #222222; color: #888888; padding: 6px 18px; 
-        font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; 
+        <span style="border: 1px solid #222222; color: #888888; padding: 5px 14px; 
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; 
         text-transform: uppercase;">$0 Infrastructure</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
-
 # API Status Check
 api_live = False
 model_loaded = False
