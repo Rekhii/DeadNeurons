@@ -209,106 +209,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Hero Header
+# Hero Header
 st.markdown("""
-<div style="
-    text-align: center;
-    padding: 56px 0 24px 0;
-    border-bottom: 1px solid #1a1a1a;
-    background: transparent;
-">
-    <p style="
-        font-family: 'DM Mono', monospace;
-        font-size: 0.68rem;
-        color: #4a4a4a;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        margin: 0 0 16px 0;
-    ">
-        Neural Decoder · MLOps · Neuropixels
-    </p>
-
-    <h1 style="
-        font-family: 'Syne', sans-serif;
-        font-size: 4.5rem;
-        font-weight: 700;
-        margin: 0;
-        color: #ffffff;
-        letter-spacing: -0.05em;
-        line-height: 0.96;
-    ">
-        DeadNeurons
-    </h1>
-
-    <p style="
-        font-family: 'DM Mono', monospace;
-        font-size: 0.84rem;
-        color: #6a6a6a;
-        margin: 18px auto 0 auto;
-        line-height: 1.75;
-        max-width: 760px;
-    ">
+<div class="hero-wrap">
+    <p class="hero-kicker">Neural Decoder · MLOps · Neuropixels</p>
+    <h1 class="hero-title">DeadNeurons</h1>
+    <p class="hero-subtitle">
         Self-improving neural decoder with full MLOps lifecycle<br>
         Built in pure NumPy · Trained on real Neuropixels brain recordings · Deployed end to end
     </p>
-
-    <div style="
-        margin-top: 26px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    ">
-        <span style="
-            border: 1px solid #222222;
-            background: #0b0b0b;
-            color: #9a9a9a;
-            padding: 7px 16px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-        ">
-            84.3% Mean Accuracy
-        </span>
-
-        <span style="
-            border: 1px solid #222222;
-            background: #0b0b0b;
-            color: #9a9a9a;
-            padding: 7px 16px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-        ">
-            26 Sessions
-        </span>
-
-        <span style="
-            border: 1px solid #222222;
-            background: #0b0b0b;
-            color: #9a9a9a;
-            padding: 7px 16px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-        ">
-            4,869 Trials
-        </span>
-
-        <span style="
-            border: 1px solid #222222;
-            background: #0b0b0b;
-            color: #9a9a9a;
-            padding: 7px 16px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-        ">
-            $0 Infrastructure
-        </span>
+    <div class="hero-stats">
+        <span class="hero-chip">84.3% Mean Accuracy</span>
+        <span class="hero-chip">26 Sessions</span>
+        <span class="hero-chip">4,869 Trials</span>
+        <span class="hero-chip">$0 Infrastructure</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
