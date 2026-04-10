@@ -12,7 +12,7 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@700;800&display=swap');
 
     .section-divider {
         border-top: 1px solid #1a1a1a;
@@ -35,9 +35,9 @@ st.markdown("""
     }
 
     .hero-title {
-        font-family: 'IBM Plex Sans', sans-serif;
+        font-family: 'Space Grotesk', sans-serif;
         font-size: 3.8rem;
-        font-weight: 700;
+        font-weight: 800;
         color: #ffffff;
         letter-spacing: -0.05em;
         line-height: 0.95;
