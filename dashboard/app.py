@@ -211,55 +211,9 @@ with tab2:
 # Tab 3: Architecture
 with tab3:
     st.subheader('System Architecture')
+    st.image('figures/System_Arch.png', use_container_width=True)
 
-    arch_col1, arch_col2 = st.columns(2)
-
-    with arch_col1:
-        st.markdown('**Data Pipeline**')
-        st.code(
-            'Steinmetz 2019 Neuropixels Data\n'
-            '  26 sessions, 7 mice, 4869 trials\n'
-            '  474-1769 neurons per session\n'
-            '       |\n'
-            '       v\n'
-            'Feature Extraction\n'
-            '  Mean firing rates in 4 time windows:\n'
-            '  pre-stimulus | stimulus | decision | post\n'
-            '       |\n'
-            '       v\n'
-            'PCA Dimensionality Reduction\n'
-            '  2936+ features -> 50 components\n'
-            '       |\n'
-            '       v\n'
-            'Self-Improving Classifier\n'
-            '  50 input -> 32 hidden (ReLU) -> 1 output (Sigmoid)\n'
-            '  Observe -> Diagnose -> Correct each epoch',
-            language=None
-        )
-
-    with arch_col2:
-        st.markdown('**MLOps Pipeline**')
-        st.code(
-            'GitHub Repository\n'
-            '  CI/CD via GitHub Actions\n'
-            '       |\n'
-            '       v\n'
-            'Experiment Tracker (SQLite)\n'
-            '  Logs every run: hyperparams, metrics, git commit\n'
-            '       |\n'
-            '       v\n'
-            'Model Registry (Hugging Face Hub)\n'
-            '  Versioned weights, auto-promotion logic\n'
-            '       |\n'
-            '       v\n'
-            'FastAPI on Render.com (Docker)\n'
-            '  /predict  /health  /model/info\n'
-            '       |\n'
-            '       v\n'
-            'Monitoring Dashboard (Streamlit)\n'
-            '  Live metrics, drift detection, predictions',
-            language=None
-        )
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     st.markdown('**Self-Improvement Cycle**')
     si1, si2, si3 = st.columns(3)
