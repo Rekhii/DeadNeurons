@@ -12,6 +12,8 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
     .section-divider {
         border-top: 1px solid #1a1a1a;
         margin: 28px 0;
@@ -24,7 +26,7 @@ st.markdown("""
     }
 
     .hero-kicker {
-        font-family: 'DM Mono', monospace;
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.70rem;
         color: #5a5a5a;
         letter-spacing: 0.16em;
@@ -33,7 +35,7 @@ st.markdown("""
     }
 
     .hero-title {
-        font-family: 'Syne', sans-serif;
+        font-family: 'IBM Plex Sans', sans-serif;
         font-size: 3.8rem;
         font-weight: 700;
         color: #ffffff;
@@ -43,7 +45,7 @@ st.markdown("""
     }
 
     .hero-subtitle {
-        font-family: 'DM Mono', monospace;
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.86rem;
         color: #7a7a7a;
         line-height: 1.8;
@@ -63,7 +65,7 @@ st.markdown("""
         background: #0b0b0b;
         color: #a0a0a0;
         padding: 7px 14px;
-        font-family: 'DM Mono', monospace;
+        font-family: 'IBM Plex Mono', monospace;
         font-size: 0.68rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
